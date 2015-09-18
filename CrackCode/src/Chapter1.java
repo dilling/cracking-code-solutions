@@ -20,9 +20,13 @@ public class Chapter1 {
 		for(String test: cases)
 			System.out.println(chapter1.removeDuplicates(test));
 		
-		//1.4 isAnagram
+		// 1.4 isAnagram
 		String s1 = "this", s2 = "sith";
 		System.out.println(Boolean.toString(chapter1.isAnagram(s1,s2)));
+		
+		// 1.5 replaceSpaces
+		s = "THIS IS NOT A TEST";
+		System.out.println(chapter1.replaceSpaces(s));
 		
 	}
 	
@@ -67,7 +71,7 @@ public class Chapter1 {
 		return s;
 	}
 	
-	// Write a method to decide if two strings are anagrams or not.
+	// 1.4 Write a method to decide if two strings are anagrams or not.
 	public boolean isAnagram(String s1, String s2){
 		if(s1.length()!=s2.length()) return false;
 		
@@ -78,5 +82,16 @@ public class Chapter1 {
 		}
 		for(int i:index) if(i!=0) return false;
 		return true;
+	}
+	
+	// 1.5 Write a method to replace all spaces in a string with ‘%20’.
+	public String replaceSpaces(String s){
+		for(int i=0; i<s.length(); i++){
+			if(s.charAt(i)==' '){
+				s = s.substring(0, i) + "%20" + s.substring(i+1);
+				i = i+2;
+			}
+		}
+		return s;
 	}
 }
