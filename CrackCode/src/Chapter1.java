@@ -20,6 +20,10 @@ public class Chapter1 {
 		for(String test: cases)
 			System.out.println(chapter1.removeDuplicates(test));
 		
+		//1.4 isAnagram
+		String s1 = "this", s2 = "sith";
+		System.out.println(Boolean.toString(chapter1.isAnagram(s1,s2)));
+		
 	}
 	
 	// 1.1 Implement an algorithm to determine if a string has all unique characters.
@@ -62,4 +66,18 @@ public class Chapter1 {
 		}
 		return s;
 	}
+	
+	// Write a method to decide if two strings are anagrams or not.
+	public boolean isAnagram(String s1, String s2){
+		if(s1.length()!=s2.length()) return false;
+		
+		int[] index = new int[26];
+		for(int i=0; i<s1.length(); i++){
+			index[Character.toLowerCase(s1.charAt(i))-'a']++;
+			index[Character.toLowerCase(s1.charAt(i))-'a']--;
+		}
+		for(int i:index) if(i!=0) return false;
+		return true;
+	}
+	
 }
