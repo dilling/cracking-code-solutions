@@ -74,10 +74,9 @@ public class Chapter1 {
 		int[] index = new int[26];
 		for(int i=0; i<s1.length(); i++){
 			index[Character.toLowerCase(s1.charAt(i))-'a']++;
-			index[Character.toLowerCase(s1.charAt(i))-'a']--;
+			index[Character.toLowerCase(s2.charAt(i))-'a']--;
 		}
 		for(int i:index) if(i!=0) return false;
 		return true;
 	}
-	
 }
