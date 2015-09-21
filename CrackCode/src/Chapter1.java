@@ -30,10 +30,10 @@ public class Chapter1 {
 		System.out.println(chapter1.replaceSpaces(s));
 		
 		// 1.6 rotate90
-		
-		/*Test Case*/
-		
-		
+		byte[][][] image = chapter1.randomImage(5);
+		chapter1.printByteArray(image);
+		chapter1.rotate90(image);
+		chapter1.printByteArray(image);
 	}
 	
 	// 1.1 Implement an algorithm to determine if a string has all unique characters.
@@ -102,13 +102,13 @@ public class Chapter1 {
 	}
 	
 	// 1.6 Given an image represented by an NxN matrix, where each pixel in the 
-	// image is 4 bytes, write a method to rotate the image by 90 degrees
-	public void rotate90(Pixel[][] image){
-		Pixel temp;
-		int length = image[0].length;
-		int middle = (int) (length+1)/2;
+	// image is 4 bytes, write a method to rotate the image by 90 degrees	
+	public void rotate90(byte[][][] image){
+		byte[] temp;
+		int length = image[0].length - 1;
+		int middle = (int) (length+2)/2;
 		for(int i=0; i<middle; i++){
-			for(int j=0; j<middle; j++){
+			for(int j=0; j<middle-1; j++){
 				temp = image[i][j];
 				image[i][j] = image[j][length-i];
 				image[j][length-i] = image[length-i][length-j];
@@ -116,28 +116,36 @@ public class Chapter1 {
 				image[length-j][i] = temp;
 			}
 		}
-	}	
+	}
 	
-	// Nested class Pixel for use in 1.6
-	private class Pixel{
-		private byte[] bytes = new byte[4];
+	/************************************* HELPER METHODS ************************************************************/
+	
+	private byte[][][] randomImage(int n){
+		byte[][][] image = new byte[n][n][4];
+		Random rand = new Random();
 		
-		public Pixel getRandom(){
-			Pixel pixel = new Pixel();
-			for(byte b:bytes){
-				byte[] rand = new byte[20];
-				new Random().nextBytes(rand);
+		for(int i=0; i<n; i++){
+			for(int j=0; j<n; j++){
+				rand.nextBytes(image[i][j]);
 			}
-			return pixel;
 		}
+		return image;
+	}
+	
+	private void printByteArray(byte[][][] byteArray){
+		int length = byteArray[0].length;
+		int size = byteArray[0][0].length;
 		
-		public byte[] getBytes() {
-			return bytes;
+		for(int i=0; i<length; i++){
+			for(int j=0; j<size; j++){
+				for(int k=0; k<length; k++){
+					System.out.format("%5d", byteArray[i][k][j]);
+				}
+				System.out.print("    ");
+			}
+			System.out.println();
 		}
-
-		public void setBytes(byte[] bytes) {
-			this.bytes = bytes;
-		}
+		System.out.println();
 	}
 }
 
