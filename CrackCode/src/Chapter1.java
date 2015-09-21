@@ -1,3 +1,4 @@
+import java.util.Random;
 
 public class Chapter1 {
 
@@ -27,6 +28,11 @@ public class Chapter1 {
 		// 1.5 replaceSpaces
 		s = "THIS IS NOT A TEST";
 		System.out.println(chapter1.replaceSpaces(s));
+		
+		// 1.6 rotate90
+		
+		/*Test Case*/
+		
 		
 	}
 	
@@ -94,4 +100,44 @@ public class Chapter1 {
 		}
 		return s;
 	}
+	
+	// 1.6 Given an image represented by an NxN matrix, where each pixel in the 
+	// image is 4 bytes, write a method to rotate the image by 90 degrees
+	public void rotate90(Pixel[][] image){
+		Pixel temp;
+		int length = image[0].length;
+		int middle = (int) (length+1)/2;
+		for(int i=0; i<middle; i++){
+			for(int j=0; j<middle; j++){
+				temp = image[i][j];
+				image[i][j] = image[j][length-i];
+				image[j][length-i] = image[length-i][length-j];
+				image[length-i][length-j] = image[length-j][i];
+				image[length-j][i] = temp;
+			}
+		}
+	}	
+	
+	// Nested class Pixel for use in 1.6
+	private class Pixel{
+		private byte[] bytes = new byte[4];
+		
+		public Pixel getRandom(){
+			Pixel pixel = new Pixel();
+			for(byte b:bytes){
+				byte[] rand = new byte[20];
+				new Random().nextBytes(rand);
+			}
+			return pixel;
+		}
+		
+		public byte[] getBytes() {
+			return bytes;
+		}
+
+		public void setBytes(byte[] bytes) {
+			this.bytes = bytes;
+		}
+	}
 }
+
