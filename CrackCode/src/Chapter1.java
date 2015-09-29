@@ -34,6 +34,12 @@ public class Chapter1 {
 		chapter1.printByteArray(image);
 		chapter1.rotate90(image);
 		chapter1.printByteArray(image);
+		
+		// 1.7 propigateZeros
+		int[][] intArray = chapter1.randomIntArray(5, 6);
+		chapter1.printIntArray(intArray);
+		chapter1.propigateZeros(intArray);
+		chapter1.printIntArray(intArray);
 	}
 	
 	// 1.1 Implement an algorithm to determine if a string has all unique characters.
@@ -118,6 +124,39 @@ public class Chapter1 {
 		}
 	}
 	
+	// 1.7 Write an algorithm such that if an element in an MxN matrix is 0, 
+	//	   its entire row and column is set to 0.
+	public void propigateZeros(int[][] inputMatrix){
+		int length = inputMatrix.length;
+		int width = inputMatrix[0].length;
+		boolean[] zerosAtI = new boolean[length];
+		boolean[] zerosAtJ = new boolean[width];
+		
+		// finds zeros
+		for(int i=0; i<length; i++){
+			for(int j=0; j<width; j++){
+				if(inputMatrix[i][j]==0){
+					zerosAtI[i]=true;
+					zerosAtJ[j]=true;
+				}
+			}
+		}
+		
+		// sets zeros
+		for(int n=0; n<length; n++){
+			if(zerosAtI[n]){
+				for(int w=0; w<width; w++) 
+					inputMatrix[n][w]=0;
+			}
+		}
+		for(int n=0; n<width; n++){
+			if(zerosAtJ[n]){
+				for(int l=0; l<length; l++) 
+					inputMatrix[l][n]=0;
+			}
+		}
+	}
+	
 	/************************************* HELPER METHODS ************************************************************/
 	
 	private byte[][][] randomImage(int n){
@@ -142,6 +181,32 @@ public class Chapter1 {
 					System.out.format("%5d", byteArray[i][k][j]);
 				}
 				System.out.print("    ");
+			}
+			System.out.println();
+		}
+		System.out.println();
+	}
+	
+	private int[][] randomIntArray(int n, int m){
+		int[][] intArray = new int[n][m];
+		Random rand = new Random();
+		
+		for(int i=0;i<n; i++){
+			for(int j=0; j<m; j++){
+				intArray[i][j] = rand.nextInt(10);
+			}
+		}
+		return intArray;
+	}
+	
+	private void printIntArray(int[][] intArray){
+		int length = intArray.length;
+		int width = intArray[0].length;
+		
+		for(int i=0;i<length; i++){
+			for(int j=0; j<width; j++){
+				System.out.print(intArray[i][j]);
+				System.out.print(" ");
 			}
 			System.out.println();
 		}
