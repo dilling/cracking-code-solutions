@@ -11,6 +11,12 @@ public class Chapter2 {
 		chapter2.printList(head);
 		chapter2.removeDuplicates(head);
 		chapter2.printList(head);
+		
+		// 2.2 getNthFromLast
+		head = chapter2.randomList(10, 10);
+		chapter2.printList(head);
+		Node current = chapter2.getNthFromLast(head, 7);
+		chapter2.printNode(current);
 	}
 	
 	// 2.1 Write code to remove duplicates from an unsorted linked list. (No temporary buffer)
@@ -24,6 +30,24 @@ public class Chapter2 {
 			else current = current.next;
 		}
 		removeDuplicates(head.next);
+	}
+	
+	public Node getNthFromLast(Node head, int n){
+		int c=0;
+		Node current = head;
+		while(current!=null){
+			current=current.next;
+			c++;
+		}
+		if(c<n) return null;
+		
+		current = head;
+		while(current!=null){
+			if(c==n) return current;
+			current=current.next;
+			c--;
+		}
+		return null;
 	}
 
 	/************************************* HELPER METHODS ************************************************************/
@@ -59,4 +83,10 @@ public class Chapter2 {
 		}
 		System.out.println();
 	}
+	
+	private void printNode(Node node){
+		System.out.println(node.data);
+		System.out.println();
+	}
 }
+
