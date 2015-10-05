@@ -17,6 +17,14 @@ public class Chapter2 {
 		chapter2.printList(head);
 		Node current = chapter2.getNthFromLast(head, 7);
 		chapter2.printNode(current);
+		
+		// 2.3 deleteNode
+		head = chapter2.randomList(3, 10);
+		chapter2.printList(head);
+		current = head.next.next;
+		chapter2.deleteNode(current);
+		chapter2.printList(head);		
+		
 	}
 	
 	// 2.1 Write code to remove duplicates from an unsorted linked list. (No temporary buffer)
@@ -32,6 +40,7 @@ public class Chapter2 {
 		removeDuplicates(head.next);
 	}
 	
+	// 2.2 Implement an algorithm to find the nth to last element of a singly linked list.
 	public Node getNthFromLast(Node head, int n){
 		int c=0;
 		Node current = head;
@@ -48,6 +57,13 @@ public class Chapter2 {
 			c--;
 		}
 		return null;
+	}
+	
+	// 2.3 Implement an algorithm to delete a node in the middle of a single linked list, given only access to that node.
+	public void deleteNode(Node node){
+		if(node==null||node.next==null) return;
+		node.data = node.next.data;
+		node.next = node.next.next;
 	}
 
 	/************************************* HELPER METHODS ************************************************************/
