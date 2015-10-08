@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Random;
 
 public class Chapter2 {
@@ -33,6 +34,11 @@ public class Chapter2 {
 		Node sumList = chapter2.addLinkedLists(list1, list2);
 		chapter2.printList(sumList);
 		
+		// 2.5 findCorruptNode
+		Node corruptList = chapter2.randomCorruptList(6, 100);
+		chapter2.printList(corruptList, 20);
+		Node corruptNode = chapter2.findCorruptNode(corruptList);
+		chapter2.printNode(corruptNode);		
 	}
 	
 	// 2.1 Write code to remove duplicates from an unsorted linked list. (No temporary buffer)
@@ -101,6 +107,20 @@ public class Chapter2 {
 		if(node==null) return 0;
 		else return node.data;
 	}
+	
+	// 2.5 Given a circular linked list, implement an algorithm which returns node at the beginning of the loop.
+	public Node findCorruptNode(Node node){
+		HashMap<String, Boolean> map = new HashMap<String, Boolean>();
+		String memoryLocation;
+		while(node!=null){
+			memoryLocation = node.toString();
+			if(map.containsKey(memoryLocation))
+				return node;
+			map.put(memoryLocation, true);
+			node = node.next;			
+		}
+		return null;
+	}
 
 	/************************************* HELPER METHODS ************************************************************/
 	
@@ -127,11 +147,38 @@ public class Chapter2 {
 		return head;
 	}
 	
+	private Node randomCorruptList(int length, int randConstraint){
+		Random rand = new Random();
+		Node head = new Node(rand.nextInt(randConstraint));
+		Node current = head;	
+		Node corruptNode = head;
+		int corruptLocation = rand.nextInt(length); 
+		
+		for(int i=1; i<length; i++){
+			current.next = new Node(rand.nextInt(randConstraint));
+			current = current.next;
+			if(corruptLocation==i) corruptNode = current;
+		}
+		current.next = corruptNode;
+		return head;
+	}
+	
 	private void printList(Node node){
 		while(node!=null){
 			System.out.print(node.data);
 			System.out.print(" ");
 			node = node.next;
+		}
+		System.out.println();
+	}
+	
+	private void printList(Node node, int maxLength){
+		int i = 0;
+		while(node!=null&&i<maxLength){
+			System.out.print(node.data);
+			System.out.print(" ");
+			node = node.next;
+			i++;
 		}
 		System.out.println();
 	}
