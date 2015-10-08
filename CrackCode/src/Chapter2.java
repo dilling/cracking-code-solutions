@@ -19,11 +19,19 @@ public class Chapter2 {
 		chapter2.printNode(current);
 		
 		// 2.3 deleteNode
-		head = chapter2.randomList(3, 10);
+		head = chapter2.randomList(6, 10);
 		chapter2.printList(head);
 		current = head.next.next;
 		chapter2.deleteNode(current);
-		chapter2.printList(head);		
+		chapter2.printList(head);
+		
+		// 2.4 addLinkedLists
+		Node list1 = chapter2.randomList(3, 10);
+		Node list2 = chapter2.randomList(3, 10);
+		chapter2.printList(list1);
+		chapter2.printList(list2);
+		Node sumList = chapter2.addLinkedLists(list1, list2);
+		chapter2.printList(sumList);
 		
 	}
 	
@@ -64,6 +72,34 @@ public class Chapter2 {
 		if(node==null||node.next==null) return;
 		node.data = node.next.data;
 		node.next = node.next.next;
+	}
+	
+	// 2.4 You have two numbers represented by a linked list, where each node contains a single digit. 
+	// 	   The digits are stored in reverse order, such that the 1’s digit is at the head of the list. 
+	//     Write a function that adds the two numbers and returns the sum as a linked list.
+	public Node addLinkedLists(Node list1, Node list2){
+		Node sumHead = new Node(0), current = sumHead, previous = null;
+		int carry = 0, sum;
+		
+		while(list1!=null||list2!=null||carry>0){
+			sum = getValue(list1) + getValue(list2) + carry;
+			current.data = sum%10;
+			carry = sum/10;
+			
+			if(list1!=null) list1 = list1.next;
+			if(list2!=null) list2 = list2.next;
+			current.next = new Node(0);
+			previous = current;
+			current = current.next;
+		}
+		if(previous!=null) previous.next = null;
+		
+		return sumHead;
+	}
+	
+	private int getValue(Node node){
+		if(node==null) return 0;
+		else return node.data;
 	}
 
 	/************************************* HELPER METHODS ************************************************************/
